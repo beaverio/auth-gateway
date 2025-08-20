@@ -1,5 +1,5 @@
 server:
-  port: 8000
+  port: 8080
 
 spring:
   config:
@@ -14,7 +14,7 @@ spring:
           keycloak:
             client-id: auth-gateway
             client-secret: ${AUTH_GATEWAY_CLIENT_SECRET}
-            scope: openid, profile, roles, email
+            scope: openid, profile, roles, email, offline_access
             authorization-grant-type: authorization_code
             redirect-uri: ${KEYCLOAK_REDIRECT_URI}
         provider:
@@ -23,6 +23,7 @@ spring:
 
   session:
     store-type: redis
+    timeout: 86400s  # 24 hours
 
   data:
     redis:
