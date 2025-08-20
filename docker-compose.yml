@@ -1,0 +1,38 @@
+version: '3.8'
+
+services:
+  auth-gateway-redis:
+    image: redis:7-alpine
+    container_name: auth-gateway-redis
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+    command: redis-server --appendonly yes
+    networks:
+      - beaver-network
+
+  auth-gateway:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: auth-gateway
+    env_file:
+      - .env
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_REDIS_HOST: auth-gateway-redis
+      SPRING_REDIS_PORT: 6379
+    ports:
+      - "127.0.0.1:8000:8080"
+    depends_on:
+      - auth-gateway-redis
+    networks:
+      - beaver-network
+
+volumes:
+  redis_data:
+
+networks:
+  beaver-network:
+    external: true

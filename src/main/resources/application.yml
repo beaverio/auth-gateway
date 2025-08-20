@@ -14,16 +14,23 @@ spring:
           keycloak:
             client-id: auth-gateway
             client-secret: ${AUTH_GATEWAY_CLIENT_SECRET}
-            scope: openid, profile, email
+            scope: openid, profile, roles, email
             authorization-grant-type: authorization_code
-            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
+            redirect-uri: ${KEYCLOAK_REDIRECT_URI}
         provider:
           keycloak:
-            issuer-uri: http://localhost:8090/realms/non-production
+            issuer-uri: ${KEYCLOAK_ISSUER_URI}
 
   session:
     store-type: redis
+
   data:
     redis:
-      host: localhost
-      port: 6379
+      host: ${SPRING_REDIS_HOST:localhost}
+      port: ${SPRING_REDIS_PORT:6379}
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 10
+          max-idle: 10
+          min-idle: 1
