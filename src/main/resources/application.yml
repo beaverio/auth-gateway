@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: auth-gateway
+
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            client-id: auth-gateway
+            client-secret: dev-client-secret-12345
+            scope: openid, profile, email
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
+        provider:
+          keycloak:
+            issuer-uri: http://localhost:8090/realms/non-production
+
+  session:
+    store-type: redis
+  data:
+    redis:
+      host: localhost
+      port: 6379
