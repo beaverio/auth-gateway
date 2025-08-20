@@ -2,6 +2,8 @@ server:
   port: 8080
 
 spring:
+  config:
+    import: optional:file:.env[.properties]
   application:
     name: auth-gateway
 
@@ -11,7 +13,7 @@ spring:
         registration:
           keycloak:
             client-id: auth-gateway
-            client-secret: dev-client-secret-12345
+            client-secret: ${AUTH_GATEWAY_CLIENT_SECRET}
             scope: openid, profile, email
             authorization-grant-type: authorization_code
             redirect-uri: http://localhost:8080/login/oauth2/code/keycloak
