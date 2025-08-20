@@ -24,7 +24,7 @@ services:
       SPRING_REDIS_HOST: auth-gateway-redis
       SPRING_REDIS_PORT: 6379
     ports:
-      - "127.0.0.1:8000:8080"
+      - "127.0.0.1:8000:8000"
     depends_on:
       - auth-gateway-redis
     networks:
