@@ -1,58 +1,31 @@
 server:
   port: 8000
-  # If we ever put it behind a proxy/ALB, this makes {baseUrl} reflect external host
-  # forward-headers-strategy: framework
 
 spring:
-  config:
-    import: optional:file:.env[.properties]
   application:
     name: auth-gateway
-
-  session:
-    store-type: redis
-    timeout: 86400s
-  data:
-    redis:
-      host: ${SPRING_REDIS_HOST:localhost}
-      port: ${SPRING_REDIS_PORT:6379}
-      timeout: 2s
-
   security:
     oauth2:
       client:
-        provider:
-          keycloak:
-            issuer-uri: http://localhost:8080/realms/non-production
         registration:
           auth-gateway:
             provider: keycloak
             client-id: auth-gateway
             client-secret: rN8uyg1ez6bZdmZq6Qi0UNtWF5bsPXUa
             authorization-grant-type: authorization_code
-            scope: openid, profile, email
-            redirect-uri: '{baseUrl}/login/oauth2/code/keycloak'
+            scope: openid,profile,email
+            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+        provider:
+          keycloak:
+            issuer-uri: http://keycloak-service.local:8080/realms/non-production
 
-  cloud:
-    gateway:
-      default-filters:
-        - TokenRelay                 # add Authorization: Bearer <access_token>
-      routes:
-        # All browser /api/** traffic → internal-gateway (path rewritten to drop /api)
-        - id: internal
-          uri: http://internal-gateway:8001
-          predicates:
-            - Path=/api/**
-          filters:
-            - StripPrefix=1          # /api/x → /x for internal-gateway
+logging:
+  level:
+    org.springframework.security.oauth2: INFO
+    org.springframework.web.reactive.function.client: INFO
 
 management:
   endpoints:
     web:
       exposure:
         include: health, info
-
-logging:
-  level:
-    org.springframework.security.oauth2: DEBUG
-    org.springframework.web.reactive.function.client: DEBUG

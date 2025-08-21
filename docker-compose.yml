@@ -1,17 +1,6 @@
 version: '3.8'
 
 services:
-  auth-gateway-redis:
-    image: redis:7-alpine
-    container_name: auth-gateway-redis
-    ports:
-      - "6379:6379"
-    volumes:
-      - redis_data:/data
-    command: redis-server --appendonly yes
-    networks:
-      - beaver-network
-
   auth-gateway:
     build:
       context: .
@@ -19,20 +8,10 @@ services:
     container_name: auth-gateway
     environment:
       SPRING_PROFILES_ACTIVE: docker
-      SPRING_REDIS_HOST: auth-gateway-redis
-      SPRING_REDIS_PORT: 6379
-      KEYCLOAK_PUBLIC: http://localhost:8080/realms/non-production
-      KEYCLOAK_INTERNAL: http://keycloak-service:8080/realms/non-production
-      AUTH_GATEWAY_CLIENT_SECRET: rN8uyg1ez6bZdmZq6Qi0UNtWF5bsPXUa
     ports:
       - "127.0.0.1:8000:8000"
-    depends_on:
-      - auth-gateway-redis
     networks:
       - beaver-network
-
-volumes:
-  redis_data:
 
 networks:
   beaver-network:

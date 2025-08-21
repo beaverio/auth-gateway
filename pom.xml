@@ -42,11 +42,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-oauth2-client</artifactId>
         </dependency>
-        <!-- Sessions in Redis -->
-        <dependency>
-            <groupId>org.springframework.session</groupId>
-            <artifactId>spring-session-data-redis</artifactId>
-        </dependency>
         <!-- Health endpoints -->
         <dependency>
             <groupId>org.springframework.boot</groupId>
