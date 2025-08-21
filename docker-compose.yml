@@ -17,12 +17,13 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: auth-gateway
-    env_file:
-      - .env
     environment:
       SPRING_PROFILES_ACTIVE: docker
       SPRING_REDIS_HOST: auth-gateway-redis
       SPRING_REDIS_PORT: 6379
+      KEYCLOAK_PUBLIC: http://localhost:8080/realms/non-production
+      KEYCLOAK_INTERNAL: http://keycloak-service:8080/realms/non-production
+      AUTH_GATEWAY_CLIENT_SECRET: rN8uyg1ez6bZdmZq6Qi0UNtWF5bsPXUa
     ports:
       - "127.0.0.1:8000:8000"
     depends_on:
