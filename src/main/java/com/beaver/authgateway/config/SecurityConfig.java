@@ -1,4 +1,4 @@
-package com.beaver.authgateway;
+package com.beaver.authgateway.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
