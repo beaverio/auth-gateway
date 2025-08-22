@@ -1,5 +1,3 @@
-version: '3.8'
-
 services:
   auth-gateway:
     build:
@@ -8,8 +6,10 @@ services:
     container_name: auth-gateway
     environment:
       SPRING_PROFILES_ACTIVE: docker
+      AUTH_GATEWAY_CLIENT_SECRET: ${AUTH_GATEWAY_CLIENT_SECRET}
+      KEYCLOAK_ISSUER_URI: ${KEYCLOAK_ISSUER_URI}
     ports:
-      - "127.0.0.1:8000:8000"
+      - "8000:8000"
     networks:
       - beaver-network
 

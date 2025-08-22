@@ -11,17 +11,17 @@ spring:
           auth-gateway:
             provider: keycloak
             client-id: auth-gateway
-            client-secret: rN8uyg1ez6bZdmZq6Qi0UNtWF5bsPXUa
+            client-secret: ${AUTH_GATEWAY_CLIENT_SECRET}
             authorization-grant-type: authorization_code
-            scope: openid,profile,email
-            redirect-uri: "{baseUrl}/login/oauth2/code/{registrationId}"
+            scope: openid, profile, email
+            redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
         provider:
           keycloak:
-            issuer-uri: http://keycloak-service.local:8080/realms/non-production
+            issuer-uri: ${KEYCLOAK_ISSUER_URI}
+            user-name-attribute: preferred_username
 
 logging:
   level:
-    org.springframework.security.oauth2: INFO
     org.springframework.web.reactive.function.client: INFO
 
 management:
