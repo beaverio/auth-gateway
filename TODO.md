@@ -19,18 +19,21 @@ Goal: On successful OIDC login, auth-gateway relays the access_token to internal
   - [ ] Add structured logs for subject (`sub`/`preferred_username`) and `email` at gateway boundaries
 
 ## Phase 2 – Identity lookup implementation
-- [ ] identity-service endpoint implementation per contract
-  - [ ] Extract `email` from `@AuthenticationPrincipal Jwt`; no extra validation here (JWT is already validated)
-  - [ ] Lookup user by email; if found return `200 { userId }`; if not found auto-provision and return `201 { userId }`
-- [ ] Internal-gateway passthrough
-  - [ ] Ensure `Authorization` preserved; add short timeout and clear 5xx/timeout handling
+- [x] identity-service endpoint implementation per contract
+  - [x] Extract `email` from `@AuthenticationPrincipal Jwt`; no extra validation here (JWT is already validated)
+  - [x] Lookup user by email; if found return `200 { userId }`; if not found auto-provision and return `201 { userId }`
+- [x] Internal-gateway passthrough
+  - [x] Ensure `Authorization` preserved (default behavior in Spring Cloud Gateway); timeouts set; StripPrefix=2 applied
+- [x] Cleanup
+  - [x] Remove legacy `POST /users` create endpoint (provisioning goes only through `/users/bootstrap`)
 
 ## Phase 3 – Auth-gateway bootstrap on login
-- [ ] Hook on authentication success (post-login)
-  - [ ] Retrieve current `OAuth2AuthorizedClient` and extract `access_token`
-  - [ ] Call internal-gateway bootstrap endpoint with `Authorization: Bearer <token>`
-  - [ ] Log `{ userId }` on success
-  - [ ] Only after this step, proceed to cache/confirm session (existing Redis session remains the source of truth)
+- [x] Hook on authentication success (post-login)
+  - [x] Retrieve current `OAuth2AuthorizedClient` and extract `access_token`
+  - [x] Call internal-gateway bootstrap endpoint with `Authorization: Bearer <token>`
+  - [x] Log `{ userId }` on success
+  - [x] Session caching remains unchanged (existing Redis session handling)
+  - Note: ensure `INTERNAL_GATEWAY_URI` is configured for auth-gateway
 - [ ] Error strategy
   - [ ] Expect `201` on first login (auto-provision) and `200` on subsequent logins; log both
   - [ ] 401/403 from downstream: treat as session inconsistency → force re-auth
