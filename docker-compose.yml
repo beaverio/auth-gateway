@@ -1,7 +1,7 @@
 services:
   auth-gateway-redis:
-    image: redis:7-alpine
     container_name: auth-gateway-redis
+    image: redis:7-alpine
     command: [ "redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--save", "60", "1000" ]
     volumes:
       - auth-gateway-redis-data:/data
@@ -11,10 +11,11 @@ services:
       - beaver-network
 
   auth-gateway:
+    container_name: auth-gateway
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: auth-gateway
+    image: auth-gateway:latest
     environment:
       SPRING_PROFILES_ACTIVE: docker
       AUTH_GATEWAY_CLIENT_SECRET: ${AUTH_GATEWAY_CLIENT_SECRET}
