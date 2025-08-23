@@ -4,6 +4,32 @@ server:
 spring:
   application:
     name: auth-gateway
+
+  # Session configuration
+  session:
+    store-type: redis
+    redis:
+      namespace: authgw:sessions
+      flush-mode: on-save
+    timeout: PT12H
+    cookie:
+      name: SESSION
+      http-only: true
+      secure: false
+      same-site: lax
+
+  # Redis configuration for session storage
+  data:
+    redis:
+      host: auth-gateway-redis
+      port: 6379
+      timeout: 2000ms
+      lettuce:
+        pool:
+          max-active: 8
+          max-idle: 8
+          min-idle: 0
+
   security:
     oauth2:
       client:
@@ -24,6 +50,8 @@ spring:
     gateway:
       default-filters:
         - TokenRelay
+        - RemoveRequestHeader=Cookie
+        - RemoveResponseHeader=Set-Cookie
       routes:
         - id: internal-gateway
           uri: ${INTERNAL_GATEWAY_URI}

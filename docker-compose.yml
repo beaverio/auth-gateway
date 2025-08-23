@@ -1,4 +1,15 @@
 services:
+  auth-gateway-redis:
+    image: redis:7-alpine
+    container_name: auth-gateway-redis
+    command: [ "redis-server", "--appendonly", "yes", "--appendfsync", "everysec", "--save", "60", "1000" ]
+    volumes:
+      - auth-gateway-redis-data:/data
+    ports:
+      - "6379:6379"
+    networks:
+      - beaver-network
+
   auth-gateway:
     build:
       context: .
@@ -11,9 +22,14 @@ services:
       INTERNAL_GATEWAY_URI: ${INTERNAL_GATEWAY_URI}
     ports:
       - "8000:8000"
+    depends_on:
+      - auth-gateway-redis
     networks:
       - beaver-network
 
 networks:
   beaver-network:
     external: true
+
+volumes:
+  auth-gateway-redis-data: {}

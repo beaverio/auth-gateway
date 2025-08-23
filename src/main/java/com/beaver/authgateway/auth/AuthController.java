@@ -7,6 +7,7 @@ import org.springframework.security.oauth2.core.oidc.user.OidcUser;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.annotation.RegisteredOAuth2AuthorizedClient;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -63,5 +64,21 @@ public class AuthController {
         }
 
         return Mono.just(ResponseEntity.ok(tokenInfo));
+    }
+
+    @GetMapping("/dev/session")
+    public Mono<ResponseEntity<Map<String, Object>>> getSessionInfo(ServerWebExchange exchange) {
+        return exchange.getSession()
+            .map(session -> {
+                session.getAttributes().putIfAbsent("created", System.currentTimeMillis());
+
+                Map<String, Object> sessionInfo = new HashMap<>();
+                sessionInfo.put("id", session.getId());
+                sessionInfo.put("isNew", session.isStarted());
+                sessionInfo.put("maxInactiveInterval", session.getMaxIdleTime().getSeconds());
+                sessionInfo.put("attributes", session.getAttributes().keySet());
+
+                return ResponseEntity.ok(sessionInfo);
+            });
     }
 }
