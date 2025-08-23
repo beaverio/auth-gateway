@@ -1,11 +1,11 @@
 server:
-  port: 8000
+  port: ${PORT}
   reactive:
     session:
       cookie:
         name: SESSION
         http-only: true
-        secure: false
+        secure: true
         same-site: Lax
 
 spring:

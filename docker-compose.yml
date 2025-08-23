@@ -17,12 +17,13 @@ services:
       dockerfile: Dockerfile
     image: auth-gateway:latest
     environment:
+      PORT: ${PORT}
       SPRING_PROFILES_ACTIVE: docker
       AUTH_GATEWAY_CLIENT_SECRET: ${AUTH_GATEWAY_CLIENT_SECRET}
       KEYCLOAK_ISSUER_URI: ${KEYCLOAK_ISSUER_URI}
       INTERNAL_GATEWAY_URI: ${INTERNAL_GATEWAY_URI}
     ports:
-      - "8000:8000"
+      - "${PORT}:${PORT}"
     depends_on:
       - auth-gateway-redis
     networks:
