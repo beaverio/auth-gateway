@@ -8,7 +8,9 @@ import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
 import org.springframework.security.web.server.WebFilterExchange;
+import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler;
 import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler;
+import org.springframework.security.web.server.savedrequest.WebSessionServerRequestCache;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
@@ -26,10 +28,18 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
     @Value("${INTERNAL_GATEWAY_URI}")
     private String internalGatewayUri;
 
+    private final RedirectServerAuthenticationSuccessHandler redirect = initRedirectHandler();
+
+    private RedirectServerAuthenticationSuccessHandler initRedirectHandler() {
+        RedirectServerAuthenticationSuccessHandler handler = new RedirectServerAuthenticationSuccessHandler();
+        handler.setRequestCache(new WebSessionServerRequestCache());
+        return handler;
+    }
+
     @Override
     public Mono<Void> onAuthenticationSuccess(WebFilterExchange webFilterExchange, Authentication authentication) {
         if (!(authentication instanceof OAuth2AuthenticationToken token)) {
-            return webFilterExchange.getChain().filter(webFilterExchange.getExchange());
+            return redirect.onAuthenticationSuccess(webFilterExchange, authentication);
         }
 
         String registrationId = token.getAuthorizedClientRegistrationId();
@@ -41,7 +51,7 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
                     log.warn("Bootstrap call failed: {}", ex.toString());
                     return Mono.empty();
                 })
-                .then(webFilterExchange.getChain().filter(webFilterExchange.getExchange()));
+                .then(redirect.onAuthenticationSuccess(webFilterExchange, authentication));
     }
 
     private Mono<Void> bootstrapUser(OAuth2AuthorizedClient client) {
