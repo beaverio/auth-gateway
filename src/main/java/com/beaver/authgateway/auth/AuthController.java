@@ -17,26 +17,6 @@ import java.util.Map;
 @RequestMapping("/auth")
 public class AuthController {
 
-    @GetMapping("/user")
-    public Mono<ResponseEntity<Map<String, Object>>> getAuthenticatedUser(
-            @AuthenticationPrincipal OidcUser principal) {
-
-        if (principal == null) {
-            return Mono.just(ResponseEntity.status(HttpStatus.UNAUTHORIZED)
-                .body(Map.of("error", "User not authenticated")));
-        }
-
-        Map<String, Object> userInfo = new HashMap<>();
-        userInfo.put("id", principal.getSubject());
-        userInfo.put("username", principal.getPreferredUsername());
-        userInfo.put("email", principal.getEmail());
-        userInfo.put("name", principal.getFullName());
-        userInfo.put("givenName", principal.getGivenName());
-        userInfo.put("familyName", principal.getFamilyName());
-
-        return Mono.just(ResponseEntity.ok(userInfo));
-    }
-
     @GetMapping("/token")
     public Mono<ResponseEntity<Map<String, Object>>> getToken(
             @RegisteredOAuth2AuthorizedClient("auth-gateway") OAuth2AuthorizedClient authorizedClient,
