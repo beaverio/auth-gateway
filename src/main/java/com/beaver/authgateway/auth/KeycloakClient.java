@@ -68,7 +68,6 @@ class KeycloakClient {
         form.add("subject_token", subjectAccessToken);
         form.add("subject_token_type", "urn:ietf:params:oauth:token-type:access_token");
         form.add("requested_token_type", "urn:ietf:params:oauth:token-type:access_token");
-        // Optional: form.add("audience", "internal-services");
 
         return web.build().post()
                 .uri(kcBase + "/realms/{r}/protocol/openid-connect/token", realm)
