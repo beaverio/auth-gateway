@@ -43,7 +43,7 @@ spring:
             redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
         provider:
           keycloak:
-            issuer-uri: ${KEYCLOAK_ISSUER_URI}
+            issuer-uri: ${KEYCLOAK_BASE_URI}/realms/${KEYCLOAK_ENVIRONMENT}
             user-name-attribute: preferred_username
 
   cloud:
@@ -68,3 +68,11 @@ management:
     web:
       exposure:
         include: health, info
+
+beaver:
+  auth:
+    kc:
+      base: ${KEYCLOAK_BASE_URI}
+      env: ${KEYCLOAK_ENVIRONMENT}
+  internal-gateway:
+    uri: ${INTERNAL_GATEWAY_URI}
