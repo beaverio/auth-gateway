@@ -45,20 +45,4 @@ public class AuthController {
 
         return Mono.just(ResponseEntity.ok(tokenInfo));
     }
-
-    @GetMapping("/dev/session")
-    public Mono<ResponseEntity<Map<String, Object>>> getSessionInfo(ServerWebExchange exchange) {
-        return exchange.getSession()
-            .map(session -> {
-                session.getAttributes().putIfAbsent("created", System.currentTimeMillis());
-
-                Map<String, Object> sessionInfo = new HashMap<>();
-                sessionInfo.put("id", session.getId());
-                sessionInfo.put("isNew", session.isStarted());
-                sessionInfo.put("maxInactiveInterval", session.getMaxIdleTime().getSeconds());
-                sessionInfo.put("attributes", session.getAttributes().keySet());
-
-                return ResponseEntity.ok(sessionInfo);
-            });
-    }
 }

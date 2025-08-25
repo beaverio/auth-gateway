@@ -57,7 +57,6 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
                                 .then(refreshAuthorizedClient(client, oat, exchange))
                                 .onErrorResume(ex -> {
                                     log.warn("Bootstrap/refresh chain failed: {}", ex.toString());
-                                    // Fall back to redirect with the original client (still logged in, just without userId claim)
                                     return Mono.just(client);
                                 })
                 )
