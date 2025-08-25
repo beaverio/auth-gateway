@@ -3,14 +3,13 @@ package com.beaver.authgateway.auth;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
-import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
+import org.springframework.security.oauth2.client.web.server.ServerOAuth2AuthorizedClientRepository;
 import org.springframework.security.oauth2.core.OAuth2AccessToken;
-import org.springframework.security.oauth2.core.oidc.user.OidcUser;
-import org.springframework.security.oauth2.core.user.OAuth2User;
+import org.springframework.security.oauth2.core.OAuth2RefreshToken;
 import org.springframework.security.web.server.WebFilterExchange;
 import org.springframework.security.web.server.authentication.RedirectServerAuthenticationSuccessHandler;
 import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler;
@@ -20,8 +19,7 @@ import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 
 @Slf4j
 @Component
@@ -36,9 +34,8 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
     private String internalGatewayUri;
 
     private final RedirectServerAuthenticationSuccessHandler redirect = initRedirectHandler();
-
     private RedirectServerAuthenticationSuccessHandler initRedirectHandler() {
-        RedirectServerAuthenticationSuccessHandler handler = new RedirectServerAuthenticationSuccessHandler();
+        var handler = new RedirectServerAuthenticationSuccessHandler();
         handler.setRequestCache(new WebSessionServerRequestCache());
         return handler;
     }
@@ -54,89 +51,84 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
         return authorizedClientRepository
                 .loadAuthorizedClient(registrationId, authentication, exchange.getExchange())
                 .flatMap(client ->
+                        // 1) Ask identity-service to bootstrap user (204 on success)
                         bootstrapUser(client)
-                                .flatMap(bootstrap -> {
-                                    String accessToken =
-                                            client.getAccessToken() != null ? client.getAccessToken().getTokenValue() : null;
-                                    if (accessToken == null) return Mono.just(client);
-
-                                    String sub;
-                                    OAuth2User principal = oat.getPrincipal();
-                                    if (principal instanceof OidcUser oidc) {
-                                        sub = oidc.getSubject();
-                                    } else {
-                                        sub = principal.getAttribute("sub");
-                                    }
-
-                                    String userId = (String) bootstrap.get("userId");
-                                    if (sub == null || userId == null) {
-                                        log.warn("Missing sub or userId; skipping KC upsert & exchange");
-                                        return Mono.just(client);
-                                    }
-
-                                    return upsertUserIdOnKeycloak(sub, userId)
-                                            .then(kc.exchangeAccessToken(accessToken))
-                                            .flatMap(exchangedAccessToken -> {
-                                                OAuth2AuthorizedClient exchanged = new OAuth2AuthorizedClient(
-                                                        client.getClientRegistration(),
-                                                        oat.getName(),
-                                                        new OAuth2AccessToken(
-                                                                OAuth2AccessToken.TokenType.BEARER,
-                                                                exchangedAccessToken,
-                                                                Instant.now(),
-                                                                Instant.now().plusSeconds(900)
-                                                        ),
-                                                        client.getRefreshToken()
-                                                );
-                                                return authorizedClientRepository
-                                                        .saveAuthorizedClient(exchanged, authentication, exchange.getExchange())
-                                                        .thenReturn(exchanged);
-                                            });
+                                // 2) Then refresh tokens to pick up userId claim
+                                .then(refreshAuthorizedClient(client, oat, exchange))
+                                .onErrorResume(ex -> {
+                                    log.warn("Bootstrap/refresh chain failed: {}", ex.toString());
+                                    // Fall back to redirect with the original client (still logged in, just without userId claim)
+                                    return Mono.just(client);
                                 })
                 )
-                .onErrorResume(ex -> {
-                    log.warn("Bootstrap chain failed: {}", ex.toString());
-                    return Mono.empty();
-                })
+                // Redirect back to the original endpoint
                 .then(redirect.onAuthenticationSuccess(exchange, authentication));
     }
 
-    private Mono<Map<String,Object>> bootstrapUser(OAuth2AuthorizedClient client) {
-        String accessToken = client.getAccessToken() != null ? client.getAccessToken().getTokenValue() : null;
+    /** POST to identity bootstrap (expects 204). */
+    private Mono<Void> bootstrapUser(OAuth2AuthorizedClient client) {
+        var accessToken = client.getAccessToken();
         if (accessToken == null) {
             log.warn("No access token available for bootstrap");
-            return Mono.just(Map.of());
+            return Mono.empty();
         }
         String url = internalGatewayUri + "/api/identity/users/bootstrap";
+
         return webClientBuilder.build().post()
                 .uri(url)
-                .headers(h -> h.setBearerAuth(accessToken))
+                .headers(h -> h.setBearerAuth(accessToken.getTokenValue()))
                 .retrieve()
-                .bodyToMono(new ParameterizedTypeReference<Map<String,Object>>() {})
-                .doOnNext((Map<String,Object> body) -> log.info("Identity bootstrap OK: userId={}", body.get("userId")))
-                .onErrorResume(ex -> {
-                    log.warn("Bootstrap call failed: {}", ex.toString());
-                    return Mono.just(Map.of());
+                .onStatus(HttpStatusCode::isError, resp -> resp.createException().flatMap(Mono::error))
+                .toBodilessEntity()
+                .doOnSuccess(x -> log.info("Identity bootstrap OK (204)"))
+                .then();
+    }
+
+    /** Refresh access (and possibly refresh) token, then save back to the repo. */
+    private Mono<OAuth2AuthorizedClient> refreshAuthorizedClient(
+            OAuth2AuthorizedClient client,
+            OAuth2AuthenticationToken oat,
+            WebFilterExchange exchange) {
+
+        OAuth2RefreshToken currentRt = client.getRefreshToken();
+        if (currentRt == null) {
+            log.warn("No refresh token available; cannot refresh to get userId claim");
+            return Mono.just(client);
+        }
+
+        return kc.refreshAccessToken(currentRt.getTokenValue())
+                .flatMap(tok -> {
+                    Instant now = Instant.now();
+                    var newAccess = getOAuth2AccessToken(client, tok, now);
+
+                    OAuth2RefreshToken newRefresh = currentRt;
+                    if (tok.refreshToken() != null && !tok.refreshToken().isBlank()) {
+                        newRefresh = new OAuth2RefreshToken(tok.refreshToken(), now);
+                    }
+
+                    var exchanged = new OAuth2AuthorizedClient(
+                            client.getClientRegistration(),
+                            oat.getName(),
+                            newAccess,
+                            newRefresh
+                    );
+
+                    return authorizedClientRepository
+                            .saveAuthorizedClient(exchanged, oat, exchange.getExchange())
+                            .thenReturn(exchanged);
                 });
     }
 
-    private Mono<Void> upsertUserIdOnKeycloak(String sub, String userId) {
-        return kc.adminToken()
-                .flatMap(admin -> kc.getUser(admin, sub)
-                        .flatMap(existingObj -> {
-                            @SuppressWarnings("unchecked")
-                            Map<String, Object> existing = existingObj;
+    private static OAuth2AccessToken getOAuth2AccessToken(OAuth2AuthorizedClient client, KeycloakClient.TokenResponse tok, Instant now) {
+        Instant accessExpiresAt = tok.expiresIn() != null ? now.plusSeconds(tok.expiresIn()) : now.plusSeconds(900);
+        Set<String> scopes = client.getAccessToken() != null ? client.getAccessToken().getScopes() : Set.of();
 
-                            @SuppressWarnings("unchecked")
-                            Map<String, Object> attrs = (Map<String, Object>) existing.get("attributes");
-                            if (attrs == null) {
-                                attrs = new HashMap<>();
-                                existing.put("attributes", attrs);
-                            }
-                            attrs.put("userId", new String[]{ userId });
-
-                            return kc.putUser(admin, sub, existing);
-                        })
-                );
+        return new OAuth2AccessToken(
+                OAuth2AccessToken.TokenType.BEARER,
+                tok.accessToken(),
+                now,
+                accessExpiresAt,
+                scopes
+        );
     }
 }
