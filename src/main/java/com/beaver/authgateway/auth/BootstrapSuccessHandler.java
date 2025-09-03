@@ -79,7 +79,7 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
                 .retrieve()
                 .onStatus(HttpStatusCode::isError, resp -> resp.createException().flatMap(Mono::error))
                 .toBodilessEntity()
-                .doOnSuccess(x -> log.info("Identity bootstrap OK (204)"))
+                .doOnSuccess(x -> log.info("identity-service user bootstrap: OK (204)"))
                 .then();
     }
 
