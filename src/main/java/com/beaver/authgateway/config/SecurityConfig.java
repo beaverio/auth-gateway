@@ -6,7 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.savedrequest.WebSessionServerRequestCache;
-import org.springframework.web.reactive.function.client.WebClient;
+import org.springframework.security.oauth2.client.registration.ReactiveClientRegistrationRepository;
+import org.springframework.security.oauth2.client.web.server.DefaultServerOAuth2AuthorizationRequestResolver;
+import org.springframework.security.oauth2.client.web.OAuth2AuthorizationRequestCustomizers;
 
 @Configuration
 class SecurityConfig {
@@ -18,20 +20,25 @@ class SecurityConfig {
     }
 
     @Bean
-    SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http) {
+    SecurityWebFilterChain securityFilterChain(ServerHttpSecurity http,
+                                               ReactiveClientRegistrationRepository registrations) {
+
+        DefaultServerOAuth2AuthorizationRequestResolver resolver =
+                new DefaultServerOAuth2AuthorizationRequestResolver(registrations);
+
+        resolver.setAuthorizationRequestCustomizer(
+                OAuth2AuthorizationRequestCustomizers.withPkce()
+        );
+
         return http
                 .authorizeExchange(ex -> ex
                         .pathMatchers("/actuator/**", "/health", "/auth/dev/session").permitAll()
-                        .anyExchange().authenticated()
-                )
-                .oauth2Login(o -> o.authenticationSuccessHandler(bootstrapSuccessHandler))
+                        .anyExchange().authenticated())
+                .oauth2Login(o -> o
+                        .authorizationRequestResolver(resolver)   // PKCE enabled
+                        .authenticationSuccessHandler(bootstrapSuccessHandler))
                 .requestCache(rc -> rc.requestCache(new WebSessionServerRequestCache()))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .build();
-    }
-
-    @Bean
-    WebClient webClient(WebClient.Builder builder) {
-        return builder.build();
     }
 }
