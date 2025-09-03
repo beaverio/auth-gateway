@@ -32,6 +32,9 @@ spring:
 
   security:
     oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: ${KEYCLOAK_BASE_URI}/realms/${KEYCLOAK_ENVIRONMENT}
       client:
         registration:
           auth-gateway:
