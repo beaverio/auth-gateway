@@ -28,7 +28,7 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
 
     private final ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
     private final WebClient.Builder webClientBuilder;
-    private final KeycloakClient kc;
+    private final KeycloakClient keycloakClient;
 
     @Value("${beaver.internal-gateway.uri}")
     private String internalGatewayUri;
@@ -95,7 +95,7 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
             return Mono.just(client);
         }
 
-        return kc.refreshAccessToken(currentRt.getTokenValue())
+        return keycloakClient.refreshAccessToken(currentRt.getTokenValue())
                 .flatMap(tok -> {
                     Instant now = Instant.now();
                     var newAccess = getOAuth2AccessToken(client, tok, now);

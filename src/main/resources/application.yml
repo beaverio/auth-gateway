@@ -34,19 +34,19 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: ${KEYCLOAK_BASE_URI}/realms/${KEYCLOAK_ENVIRONMENT}
+          issuer-uri: ${keycloak.admin.base-url}/realms/${keycloak.admin.realm}
       client:
         registration:
           auth-gateway:
             provider: keycloak
-            client-id: auth-gateway
-            client-secret: ${AUTH_GATEWAY_CLIENT_SECRET}
+            client-id: ${keycloak.admin.client-id}
+            client-secret: ${keycloak.admin.client-secret}
             authorization-grant-type: authorization_code
             scope: openid, profile, email
             redirect-uri: '{baseUrl}/login/oauth2/code/{registrationId}'
         provider:
           keycloak:
-            issuer-uri: ${KEYCLOAK_BASE_URI}/realms/${KEYCLOAK_ENVIRONMENT}
+            issuer-uri: ${keycloak.admin.base-url}/realms/${keycloak.admin.realm}
             user-name-attribute: preferred_username
 
   cloud:
@@ -55,7 +55,7 @@ spring:
         - TokenRelay
       routes:
         - id: internal-gateway
-          uri: ${INTERNAL_GATEWAY_URI}
+          uri: ${beaver.internal-gateway.uri}
           predicates:
             - Path=/api/**
           filters:
@@ -72,10 +72,13 @@ management:
       exposure:
         include: health, info
 
+keycloak:
+  admin:
+    base-url: ${KEYCLOAK_BASE_URI}
+    realm: ${KEYCLOAK_ENVIRONMENT}
+    client-id: auth-gateway
+    client-secret: ${AUTH_GATEWAY_CLIENT_SECRET}
+
 beaver:
-  auth:
-    kc:
-      base: ${KEYCLOAK_BASE_URI}
-      env: ${KEYCLOAK_ENVIRONMENT}
   internal-gateway:
     uri: ${INTERNAL_GATEWAY_URI}

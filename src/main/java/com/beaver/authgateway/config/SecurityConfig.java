@@ -13,7 +13,7 @@ import org.springframework.security.web.server.savedrequest.WebSessionServerRequ
 import static org.springframework.security.config.Customizer.withDefaults;
 
 @Configuration
-class SecurityConfig {
+public class SecurityConfig {
 
     private final BootstrapSuccessHandler bootstrapSuccessHandler;
 
@@ -38,7 +38,7 @@ class SecurityConfig {
                         .authorizationRequestResolver(resolver)
                         .authenticationSuccessHandler(bootstrapSuccessHandler)
                 )
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt(withDefaults()))
+                .oauth2ResourceServer(o -> o.jwt(withDefaults()))
                 .requestCache(rc -> rc.requestCache(new WebSessionServerRequestCache()))
                 .csrf(ServerHttpSecurity.CsrfSpec::disable)
                 .build();
