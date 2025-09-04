@@ -31,7 +31,7 @@ public class SecurityConfig {
 
         return http
                 .authorizeExchange(ex -> ex
-                        .pathMatchers("/actuator/**", "/health", "/auth/dev/session").permitAll()
+                        .pathMatchers("/actuator/**", "/health").permitAll()
                         .anyExchange().authenticated()
                 )
                 .oauth2Login(o -> o
