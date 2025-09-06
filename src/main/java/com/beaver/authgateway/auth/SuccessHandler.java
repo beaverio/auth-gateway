@@ -1,6 +1,6 @@
 package com.beaver.authgateway.auth;
 
-import com.beaver.authgateway.user.service.UserService;
+import com.beaver.authgateway.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

@@ -1,6 +1,5 @@
-package com.beaver.authgateway.session.controller;
+package com.beaver.authgateway.session;
 
-import com.beaver.authgateway.session.service.SessionsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,7 +10,7 @@ import reactor.core.publisher.Mono;
 import java.util.List;
 
 @RestController
-@RequestMapping("/auth/sessions")
+@RequestMapping("/sessions")
 @RequiredArgsConstructor
 public class SessionsController {
 

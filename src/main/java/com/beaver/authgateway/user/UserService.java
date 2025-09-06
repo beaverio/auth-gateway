@@ -1,6 +1,6 @@
-package com.beaver.authgateway.user.service;
+package com.beaver.authgateway.user;
 
-import com.beaver.authgateway.session.service.SessionsService;
+import com.beaver.authgateway.session.SessionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
