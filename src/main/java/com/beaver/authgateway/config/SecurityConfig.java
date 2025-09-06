@@ -1,6 +1,6 @@
 package com.beaver.authgateway.config;
 
-import com.beaver.authgateway.auth.BootstrapSuccessHandler;
+import com.beaver.authgateway.auth.SuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
@@ -15,10 +15,10 @@ import static org.springframework.security.config.Customizer.withDefaults;
 @Configuration
 public class SecurityConfig {
 
-    private final BootstrapSuccessHandler bootstrapSuccessHandler;
+    private final SuccessHandler successHandler;
 
-    SecurityConfig(BootstrapSuccessHandler bootstrapSuccessHandler) {
-        this.bootstrapSuccessHandler = bootstrapSuccessHandler;
+    SecurityConfig(SuccessHandler successHandler) {
+        this.successHandler = successHandler;
     }
 
     @Bean
@@ -36,7 +36,7 @@ public class SecurityConfig {
                 )
                 .oauth2Login(o -> o
                         .authorizationRequestResolver(resolver)
-                        .authenticationSuccessHandler(bootstrapSuccessHandler)
+                        .authenticationSuccessHandler(successHandler)
                 )
                 .oauth2ResourceServer(o -> o.jwt(withDefaults()))
                 .requestCache(rc -> rc.requestCache(new WebSessionServerRequestCache()))

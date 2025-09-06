@@ -1,9 +1,8 @@
 package com.beaver.authgateway.auth;
 
+import com.beaver.authgateway.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatusCode;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.client.OAuth2AuthorizedClient;
 import org.springframework.security.oauth2.client.authentication.OAuth2AuthenticationToken;
@@ -15,7 +14,6 @@ import org.springframework.security.web.server.authentication.RedirectServerAuth
 import org.springframework.security.web.server.authentication.ServerAuthenticationSuccessHandler;
 import org.springframework.security.web.server.savedrequest.WebSessionServerRequestCache;
 import org.springframework.stereotype.Component;
-import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
 import java.time.Instant;
@@ -24,14 +22,11 @@ import java.util.Set;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandler {
+public class SuccessHandler implements ServerAuthenticationSuccessHandler {
 
     private final ServerOAuth2AuthorizedClientRepository authorizedClientRepository;
-    private final WebClient.Builder webClientBuilder;
     private final KeycloakClient keycloakClient;
-
-    @Value("${beaver.internal-gateway.uri}")
-    private String internalGatewayUri;
+    private final UserService userService;
 
     private final RedirectServerAuthenticationSuccessHandler redirect = initRedirectHandler();
     private RedirectServerAuthenticationSuccessHandler initRedirectHandler() {
@@ -52,7 +47,7 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
                 .loadAuthorizedClient(registrationId, authentication, exchange.getExchange())
                 .flatMap(client ->
                         // 1) Ask identity-service to bootstrap user (204 on success)
-                        bootstrapUser(client)
+                        userService.bootstrapUser(client)
                                 // 2) Then refresh tokens to pick up userId claim
                                 .then(refreshAuthorizedClient(client, oat, exchange))
                                 .onErrorResume(ex -> {
@@ -62,25 +57,6 @@ public class BootstrapSuccessHandler implements ServerAuthenticationSuccessHandl
                 )
                 // Redirect back to the original endpoint
                 .then(redirect.onAuthenticationSuccess(exchange, authentication));
-    }
-
-    /** POST to identity bootstrap (expects 204). */
-    private Mono<Void> bootstrapUser(OAuth2AuthorizedClient client) {
-        var accessToken = client.getAccessToken();
-        if (accessToken == null) {
-            log.warn("No access token available for bootstrap");
-            return Mono.empty();
-        }
-        String url = internalGatewayUri + "/api/identity/users/bootstrap";
-
-        return webClientBuilder.build().post()
-                .uri(url)
-                .headers(h -> h.setBearerAuth(accessToken.getTokenValue()))
-                .retrieve()
-                .onStatus(HttpStatusCode::isError, resp -> resp.createException().flatMap(Mono::error))
-                .toBodilessEntity()
-                .doOnSuccess(x -> log.info("identity-service user bootstrap: OK (204)"))
-                .then();
     }
 
     /** Refresh access (and possibly refresh) token, then save back to the repo. */
