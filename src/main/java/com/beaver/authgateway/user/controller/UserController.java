@@ -15,7 +15,7 @@ import reactor.core.publisher.Mono;
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("/auth/users")
-public class AuthUserController {
+public class UserController {
 
     private final UserService userService;
 
