@@ -51,7 +51,7 @@ public class SuccessHandler implements ServerAuthenticationSuccessHandler {
                                 // 2) Then refresh tokens to pick up userId claim
                                 .then(refreshAuthorizedClient(client, oat, exchange))
                                 .onErrorResume(ex -> {
-                                    log.warn("Bootstrap/refresh chain failed: {}", ex.toString());
+                                    log.warn("[bootstrap-user-request] Bootstrap/refresh chain failed: {}", ex.toString());
                                     return Mono.just(client);
                                 })
                 )

@@ -17,7 +17,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class SessionsService {
 
-    // Always present
     private final ReactiveSessionRepository<? extends Session> sessionRepo;
 
     private ReactiveFindByIndexNameSessionRepository<? extends Session> indexed() {
@@ -29,7 +28,7 @@ public class SessionsService {
     }
 
     public Mono<List<SessionSummary>> listByPrincipal(String principal) {
-        return indexed().findByPrincipalName(principal) // Mono<Map<id, Session>>
+        return indexed().findByPrincipalName(principal)
                 .map(Map::values)
                 .map(values -> values.stream()
                         .map(SessionSummary::from)
