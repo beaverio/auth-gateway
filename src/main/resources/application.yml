@@ -16,6 +16,7 @@ spring:
     store-type: redis
     timeout: P6DT23H
     redis:
+      repository-type: indexed
       namespace: authgw:sessions
       flush-mode: on-save
 
