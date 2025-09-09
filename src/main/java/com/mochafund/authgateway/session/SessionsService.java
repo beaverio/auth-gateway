@@ -1,4 +1,4 @@
-package com.beaver.authgateway.session;
+package com.mochafund.authgateway.session;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.session.ReactiveSessionRepository;

@@ -1,4 +1,4 @@
-package com.beaver.authgateway.auth;
+package com.mochafund.authgateway.auth;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;

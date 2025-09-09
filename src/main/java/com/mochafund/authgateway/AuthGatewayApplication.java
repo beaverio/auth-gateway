@@ -1,4 +1,4 @@
-package com.beaver.authgateway;
+package com.mochafund.authgateway;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

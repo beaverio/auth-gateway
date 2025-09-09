@@ -1,6 +1,6 @@
-package com.beaver.authgateway.user;
+package com.mochafund.authgateway.user;
 
-import com.beaver.authgateway.session.SessionsService;
+import com.mochafund.authgateway.session.SessionsService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -20,7 +20,7 @@ public class UserService {
     private final WebClient.Builder webClientBuilder;
     private final SessionsService sessions;
 
-    @Value("${beaver.internal-gateway.uri}")
+    @Value("${mochafund.internal-gateway.uri}")
     private String internalGatewayUri;
 
     public Mono<Void> deleteSelf(Jwt jwt) {

@@ -1,4 +1,4 @@
-package com.beaver.authgateway.user;
+package com.mochafund.authgateway.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

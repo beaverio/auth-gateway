@@ -1,6 +1,6 @@
-package com.beaver.authgateway.config;
+package com.mochafund.authgateway.config;
 
-import com.beaver.authgateway.auth.SuccessHandler;
+import com.mochafund.authgateway.auth.SuccessHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;

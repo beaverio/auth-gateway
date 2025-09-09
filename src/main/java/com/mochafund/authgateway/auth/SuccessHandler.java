@@ -1,6 +1,6 @@
-package com.beaver.authgateway.auth;
+package com.mochafund.authgateway.auth;
 
-import com.beaver.authgateway.user.UserService;
+import com.mochafund.authgateway.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;

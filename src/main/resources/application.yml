@@ -56,7 +56,7 @@ spring:
         - TokenRelay
       routes:
         - id: internal-gateway
-          uri: ${beaver.internal-gateway.uri}
+          uri: ${mochafund.internal-gateway.uri}
           predicates:
             - Path=/api/**
           filters:
@@ -80,6 +80,6 @@ keycloak:
     client-id: auth-gateway
     client-secret: ${AUTH_GATEWAY_CLIENT_SECRET}
 
-beaver:
+mochafund:
   internal-gateway:
     uri: ${INTERNAL_GATEWAY_URI}
