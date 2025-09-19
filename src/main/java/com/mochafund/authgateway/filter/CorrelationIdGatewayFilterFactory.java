@@ -25,8 +25,6 @@ public class CorrelationIdGatewayFilterFactory extends AbstractGatewayFilterFact
                     .header(CORRELATION_ID_HEADER, correlationId)
                     .build();
 
-            exchange.getResponse().getHeaders().add(CORRELATION_ID_HEADER, correlationId);
-
             return chain.filter(exchange.mutate().request(mutatedRequest).build());
         };
     }
