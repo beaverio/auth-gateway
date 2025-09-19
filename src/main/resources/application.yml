@@ -54,6 +54,7 @@ spring:
     gateway:
       default-filters:
         - TokenRelay
+        - CorrelationId
       routes:
         - id: internal-gateway
           uri: ${mochafund.internal-gateway.uri}
