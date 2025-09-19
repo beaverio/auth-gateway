@@ -1,0 +1,234 @@
+{
+	"info": {
+		"_postman_id": "20556562-926376ae-c613-42a2-9ccf-6e3ed32925dd",
+		"name": "auth-gateway",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "identity",
+					"item": [
+						{
+							"name": "users",
+							"item": [
+								{
+									"name": "/users/bootstrap",
+									"id": "20556562-41ae32ec-fb48-4f91-b0f6-1112c2e89ac0",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"url": {
+											"raw": "{{identity-service}}/users/bootstrap",
+											"host": [
+												"{{identity-service}}"
+											],
+											"path": [
+												"users",
+												"bootstrap"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/users/self",
+									"id": "20556562-9ed69875-3a60-4399-a3c7-b36097912072",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{auth-gateway}}/api/identity/users/self",
+											"host": [
+												"{{auth-gateway}}"
+											],
+											"path": [
+												"api",
+												"identity",
+												"users",
+												"self"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/users/self",
+									"id": "20556562-1da935c8-c48e-4cc3-86b7-f9485a66fe00",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"url": {
+											"raw": "{{auth-gateway}}/api/identity/users/users/self",
+											"host": [
+												"{{auth-gateway}}"
+											],
+											"path": [
+												"api",
+												"identity",
+												"users",
+												"users",
+												"self"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/users/self",
+									"id": "20556562-69176871-552c-4a0a-a294-fdd9b3b1ffbf",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{auth-gateway}}/api/identity/users/self",
+											"host": [
+												"{{auth-gateway}}"
+											],
+											"path": [
+												"api",
+												"identity",
+												"users",
+												"self"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "20556562-8eeeb482-eb03-4d18-8a76-89fb9e62c2a7"
+						}
+					],
+					"id": "20556562-d4d4e1ad-7597-49d0-a049-a3c13678a1d6"
+				}
+			],
+			"id": "20556562-a01b6824-edcd-4afb-b58d-e3add2fbdf74"
+		}
+	],
+	"auth": {
+		"type": "oauth2",
+		"oauth2": [
+			{
+				"key": "authRequestParams",
+				"value": [
+					{
+						"key": "login_hint",
+						"value": "john@np.com",
+						"enabled": true,
+						"send_as": "request_url"
+					},
+					{
+						"key": "prompt",
+						"value": "login",
+						"enabled": true,
+						"send_as": "request_url"
+					}
+				],
+				"type": "any"
+			},
+			{
+				"key": "tokenRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "clientSecret",
+				"value": "{{client-secret}}",
+				"type": "string"
+			},
+			{
+				"key": "clientId",
+				"value": "{{client-id}}",
+				"type": "string"
+			},
+			{
+				"key": "accessTokenUrl",
+				"value": "{{access-token-url}}",
+				"type": "string"
+			},
+			{
+				"key": "authUrl",
+				"value": "{{auth-url}}",
+				"type": "string"
+			},
+			{
+				"key": "redirect_uri",
+				"value": "https://oauth.pstmn.io/v1/callback",
+				"type": "string"
+			},
+			{
+				"key": "tokenName",
+				"value": "oauth2-token",
+				"type": "string"
+			},
+			{
+				"key": "refreshRequestParams",
+				"value": [],
+				"type": "any"
+			},
+			{
+				"key": "challengeAlgorithm",
+				"value": "S256",
+				"type": "string"
+			},
+			{
+				"key": "scope",
+				"value": "openid profile roles email",
+				"type": "string"
+			},
+			{
+				"key": "grant_type",
+				"value": "authorization_code_with_pkce",
+				"type": "string"
+			},
+			{
+				"key": "addTokenTo",
+				"value": "header",
+				"type": "string"
+			},
+			{
+				"key": "client_authentication",
+				"value": "header",
+				"type": "string"
+			}
+		]
+	},
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "98de4fd8-727f-4465-a415-33059dc5ce08",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "67d892f0-aa98-44c4-903a-b7db49aae939",
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	]
+}
