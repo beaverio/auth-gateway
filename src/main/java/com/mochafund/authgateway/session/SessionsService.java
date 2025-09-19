@@ -1,6 +1,7 @@
 package com.mochafund.authgateway.session;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.session.ReactiveSessionRepository;
 import org.springframework.session.ReactiveFindByIndexNameSessionRepository;
 import org.springframework.session.Session;
@@ -13,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class SessionsService {
@@ -38,9 +40,16 @@ public class SessionsService {
 
     public Mono<Long> deleteAllByPrincipal(String principal) {
         return indexed().findByPrincipalName(principal)
-                .flatMapMany(map -> Flux.fromIterable(map.keySet()))
-                .flatMap(sessionRepo::deleteById)
-                .count();
+                .flatMapMany(map -> {
+                    var sessionIds = map.keySet();
+                    return Flux.fromIterable(sessionIds)
+                            .flatMap(sessionId ->
+                                sessionRepo.deleteById(sessionId)
+                                    .doOnSuccess(v -> log.debug("Deleted session: {}", sessionId))
+                                    .thenReturn(1L)
+                            );
+                })
+                .reduce(0L, Long::sum);
     }
 
     public record SessionSummary(String id, Instant created, Instant lastAccessed, Instant expiresAt) {
