@@ -69,15 +69,23 @@
 									"request": {
 										"method": "PATCH",
 										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"email\": \"john@np.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
 										"url": {
-											"raw": "{{auth-gateway}}/api/identity/users/users/self",
+											"raw": "{{auth-gateway}}/api/identity/users/self",
 											"host": [
 												"{{auth-gateway}}"
 											],
 											"path": [
 												"api",
 												"identity",
-												"users",
 												"users",
 												"self"
 											]
