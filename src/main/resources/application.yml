@@ -42,6 +42,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.trusted.packages: "*"
+        # TODO: Remove this once we have a shared event library!
         spring.json.type.mapping: "com.mochafund.identityservice.user.events.UserEvent:com.mochafund.authgateway.user.events.UserEvent"
     topics:
       - user.updated
