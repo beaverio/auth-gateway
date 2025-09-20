@@ -29,17 +29,19 @@ public class UserEventConsumer {
     @KafkaListener(topics = "user.updated", groupId = "auth-gateway")
     public void handleUserUpdated(UserEvent event) {
         String email = event.getData().email();
+        String oldEmail = event.getData().oldEmail();
         boolean invalidate = event.getData().invalidate();
 
-        log.info("Processing user.updated - User: {}, invalidate: {}", email, invalidate);
+        log.info("Processing user.updated - User: {} (old: {}), invalidate: {}", email, oldEmail, invalidate);
 
         if (invalidate) {
-            sessions.deleteAllByPrincipal(email)
-                .doOnNext(count -> log.info("Invalidated {} sessions for user: {}", count, email))
-                .subscribe();
-        } else {
-            // TODO: Refresh all sessions for this user!
-            log.warn("User updated refreshing sessions - User: {}", email);
+            String principalEmail = oldEmail != null ? oldEmail : email;
+
+            sessions.listByPrincipal(principalEmail)
+                    .doOnNext(sessionList -> log.info("Found {} sessions for user {} (principal: {})", sessionList.size(), email, principalEmail))
+                    .then(sessions.deleteAllByPrincipal(principalEmail))
+                    .doOnNext(count -> log.info("Deleted {} sessions for user: {} (principal: {})", count, email, principalEmail))
+                    .subscribe();
         }
     }
 }

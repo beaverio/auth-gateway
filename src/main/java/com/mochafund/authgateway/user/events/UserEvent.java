@@ -24,6 +24,7 @@ public class UserEvent extends BaseEvent {
     public record Data (
             UUID userId,
             String email,
+            String oldEmail,
             String givenName,
             String familyName,
             Boolean isActive,
