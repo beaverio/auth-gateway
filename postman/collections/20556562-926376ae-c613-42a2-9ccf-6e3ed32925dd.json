@@ -131,6 +131,11 @@
 		"type": "oauth2",
 		"oauth2": [
 			{
+				"key": "tokenName",
+				"value": "auth-gateway-token",
+				"type": "string"
+			},
+			{
 				"key": "authRequestParams",
 				"value": [
 					{
@@ -179,11 +184,6 @@
 				"type": "string"
 			},
 			{
-				"key": "tokenName",
-				"value": "oauth2-token",
-				"type": "string"
-			},
-			{
 				"key": "refreshRequestParams",
 				"value": [],
 				"type": "any"
@@ -219,9 +219,10 @@
 		{
 			"listen": "prerequest",
 			"script": {
-				"id": "98de4fd8-727f-4465-a415-33059dc5ce08",
+				"id": "9d9dacde-d891-4174-8365-6af5418f5ed5",
 				"type": "text/javascript",
 				"packages": {},
+				"requests": {},
 				"exec": [
 					""
 				]
@@ -230,9 +231,10 @@
 		{
 			"listen": "test",
 			"script": {
-				"id": "67d892f0-aa98-44c4-903a-b7db49aae939",
+				"id": "d5c919b2-2469-497c-b792-55f7c326a507",
 				"type": "text/javascript",
 				"packages": {},
+				"requests": {},
 				"exec": [
 					""
 				]
