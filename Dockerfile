@@ -1,17 +1,14 @@
-FROM maven:3.9.9-eclipse-temurin-21 AS builder
+FROM public.ecr.aws/docker/library/maven:3.9.9-eclipse-temurin-21 AS builder
 
 WORKDIR /app
 
 COPY pom.xml .
-
-# Cache dependencies
 RUN mvn dependency:go-offline -B
 
 COPY src ./src
-
 RUN mvn clean package
 
-FROM openjdk:21-jdk AS runner
+FROM public.ecr.aws/docker/library/eclipse-temurin:21-jre AS runner
 
 WORKDIR /app
 
