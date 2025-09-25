@@ -125,7 +125,20 @@
 				},
 				{
 					"name": "workspaces",
-					"item": [],
+					"item": [
+						{
+							"name": "New Request",
+							"id": "20556562-ddc6c0ee-01ed-4e64-9d81-d1dc68ae0111",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						}
+					],
 					"id": "20556562-6c181497-ddd2-4989-9da8-d5060843c58a"
 				}
 			],
