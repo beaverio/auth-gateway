@@ -127,7 +127,7 @@
 					"name": "workspaces",
 					"item": [
 						{
-							"name": "New Request",
+							"name": "/workspaces/current",
 							"id": "20556562-ddc6c0ee-01ed-4e64-9d81-d1dc68ae0111",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
