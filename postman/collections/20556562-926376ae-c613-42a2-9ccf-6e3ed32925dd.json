@@ -134,7 +134,18 @@
 							},
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{auth-gateway}}/api/workspaces/current",
+									"host": [
+										"{{auth-gateway}}"
+									],
+									"path": [
+										"api",
+										"workspaces",
+										"current"
+									]
+								}
 							},
 							"response": []
 						}
