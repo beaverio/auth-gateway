@@ -1,5 +1,6 @@
 package com.mochafund.authgateway.common.events;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Getter
@@ -22,7 +24,8 @@ public class EventEnvelope<T> {
     private UUID id = UUID.randomUUID();
 
     @Builder.Default
-    private Instant occurredAt = Instant.now();
+    @JsonFormat(shape = JsonFormat.Shape.STRING)
+    private LocalDateTime occurredAt = LocalDateTime.now();
 
     private UUID correlationId;
     private String type;
