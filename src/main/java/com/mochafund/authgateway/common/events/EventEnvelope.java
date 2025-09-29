@@ -1,13 +1,11 @@
 package com.mochafund.authgateway.common.events;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
-import lombok.experimental.SuperBuilder;
 
 import java.time.Instant;
 import java.util.UUID;
@@ -17,14 +15,21 @@ import java.util.UUID;
 @EqualsAndHashCode
 @NoArgsConstructor
 @AllArgsConstructor
-@SuperBuilder(toBuilder = true)
-public abstract class BaseEvent {
+@Builder(toBuilder = true)
+public class EventEnvelope<T> {
+
     @Builder.Default
     private UUID id = UUID.randomUUID();
+
     @Builder.Default
-    @JsonFormat(shape = JsonFormat.Shape.STRING)
-    private Instant publishedAt = Instant.now();
+    private Instant occurredAt = Instant.now();
+
     private UUID correlationId;
     private String type;
+
+    @Builder.Default
+    private int version = 1;
+
     private String actor;
+    private T payload;
 }

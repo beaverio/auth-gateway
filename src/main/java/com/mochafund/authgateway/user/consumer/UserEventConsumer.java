@@ -1,7 +1,11 @@
 package com.mochafund.authgateway.user.consumer;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.mochafund.authgateway.common.events.EventEnvelope;
+import com.mochafund.authgateway.common.events.EventType;
 import com.mochafund.authgateway.session.SessionsService;
-import com.mochafund.authgateway.user.events.UserEvent;
+import com.mochafund.authgateway.user.events.UserEventPayload;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;
@@ -13,10 +17,12 @@ import org.springframework.stereotype.Service;
 public class UserEventConsumer {
 
     private final SessionsService sessions;
+    private final ObjectMapper objectMapper;
 
-    @KafkaListener(topics = "user.deleted", groupId = "auth-gateway")
-    public void handleUserDeleted(UserEvent event) {
-        String email = event.getData().email();
+    @KafkaListener(topics = EventType.USER_DELETED, groupId = "auth-gateway")
+    public void handleUserDeleted(String message) {
+        EventEnvelope<UserEventPayload> event = readEnvelope(message, UserEventPayload.class);
+        String email = event.getPayload().getEmail();
         log.info("Processing user.deleted - User: {}", email);
 
         sessions.listByPrincipal(email)
@@ -26,11 +32,13 @@ public class UserEventConsumer {
             .subscribe();
     }
 
-    @KafkaListener(topics = "user.updated", groupId = "auth-gateway")
-    public void handleUserUpdated(UserEvent event) {
-        String email = event.getData().email();
-        String oldEmail = event.getData().oldEmail();
-        boolean invalidate = event.getData().invalidate();
+    @KafkaListener(topics = EventType.USER_UPDATED, groupId = "auth-gateway")
+    public void handleUserUpdated(String message) {
+        EventEnvelope<UserEventPayload> event = readEnvelope(message, UserEventPayload.class);
+        UserEventPayload payload = event.getPayload();
+        String email = payload.getEmail();
+        String oldEmail = payload.getOldEmail();
+        boolean invalidate = payload.isInvalidate();
 
         log.info("Processing user.updated - User: {} (old: {}), invalidate: {}", email, oldEmail, invalidate);
 
@@ -42,6 +50,17 @@ public class UserEventConsumer {
                     .then(sessions.deleteAllByPrincipal(principalEmail))
                     .doOnNext(count -> log.info("Deleted {} sessions for user: {} (principal: {})", count, email, principalEmail))
                     .subscribe();
+        }
+    }
+
+    private <T> EventEnvelope<T> readEnvelope(String message, Class<T> payloadType) {
+        try {
+            return objectMapper.readValue(
+                    message,
+                    objectMapper.getTypeFactory().constructParametricType(EventEnvelope.class, payloadType)
+            );
+        } catch (JsonProcessingException e) {
+            throw new IllegalArgumentException("Failed to parse user event envelope", e);
         }
     }
 }
