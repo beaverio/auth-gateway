@@ -15,7 +15,7 @@ public class KeycloakClient {
     private final WebClient.Builder web;
 
     @Value("${keycloak.admin.base-url}") String kcBase;
-    @Value("${keycloak.admin.realm}")  String realm;
+    @Value("${keycloak.admin.realm}") String realm;
     @Value("${keycloak.admin.client-id}") String clientId;
     @Value("${keycloak.admin.client-secret}") String clientSecret;
 
