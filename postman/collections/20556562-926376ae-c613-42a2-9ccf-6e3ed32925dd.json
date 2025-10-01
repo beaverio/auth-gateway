@@ -481,17 +481,17 @@
 									}
 								},
 								"url": {
-									"raw": "{{transactions-service}}/transactions/:id",
+									"raw": "{{auth-gateway}}/api/transactions/:id",
 									"host": [
-										"{{transactions-service}}"
+										"{{auth-gateway}}"
 									],
 									"path": [
+										"api",
 										"transactions",
 										":id"
 									],
 									"variable": [
 										{
-											"id": "aee3bb3e-18ed-4315-964a-964e6e98e1c6",
 											"key": "id",
 											"value": ""
 										}
