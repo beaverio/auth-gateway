@@ -1115,18 +1115,6 @@
 				}
 			],
 			"id": "20556562-a01b6824-edcd-4afb-b58d-e3add2fbdf74"
-		},
-		{
-			"name": "New Request",
-			"id": "20556562-e6454985-0583-4d49-980e-1cca4aee3b09",
-			"protocolProfileBehavior": {
-				"disableBodyPruning": true
-			},
-			"request": {
-				"method": "GET",
-				"header": []
-			},
-			"response": []
 		}
 	],
 	"auth": {
