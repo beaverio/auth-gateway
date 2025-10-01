@@ -1155,12 +1155,14 @@
 											}
 										},
 										"url": {
-											"raw": "{{workspace-service}}/tags",
+											"raw": "{{auth-gateway}}/api/workspaces/merchants",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
-												"tags"
+												"api",
+												"workspaces",
+												"merchants"
 											]
 										}
 									},
@@ -1176,19 +1178,20 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/tags/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/merchants/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
-												"tags",
+												"api",
+												"workspaces",
+												"merchants",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "8ae791f9-cf9b-4b15-98d4-fa0e9ad7fdb7",
 													"key": "id",
-													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
+													"value": ""
 												}
 											]
 										}
@@ -1205,17 +1208,18 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/tags/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/merchants/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
-												"tags",
+												"api",
+												"workspaces",
+												"merchants",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "3cbf044d-6925-43aa-abea-ff0d2287bbc7",
 													"key": "id",
 													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
 												}
