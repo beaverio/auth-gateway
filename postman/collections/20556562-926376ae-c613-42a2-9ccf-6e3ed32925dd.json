@@ -12,24 +12,6 @@
 					"name": "identity",
 					"item": [
 						{
-							"name": "auth",
-							"item": [
-								{
-									"name": "/whoami",
-									"id": "20556562-e78fa624-ee50-4676-8690-8657be086ee6",
-									"protocolProfileBehavior": {
-										"disableBodyPruning": true
-									},
-									"request": {
-										"method": "GET",
-										"header": []
-									},
-									"response": []
-								}
-							],
-							"id": "20556562-4cb21c01-63c4-419f-8fd8-d67edb01511f"
-						},
-						{
 							"name": "users Copy",
 							"item": [
 								{
