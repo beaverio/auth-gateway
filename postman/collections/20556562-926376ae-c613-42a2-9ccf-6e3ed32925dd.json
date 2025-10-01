@@ -933,11 +933,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/categories/tree",
+											"raw": "{{auth-gateway}}/api/workspaces/categories/tree",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"categories",
 												"tree"
 											]
@@ -955,17 +957,18 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/categories/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/categories/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"categories",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "732396fa-d31f-46ae-8ff0-cd1e2d9d0721",
 													"key": "id",
 													"value": "f771e616-04f6-4193-84b4-18c29cbfde46"
 												}
@@ -984,17 +987,18 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/categories/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/categories/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"categories",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "f48af67a-63be-46e6-be59-203198aac5fa",
 													"key": "id",
 													"value": "964c7074-fc0b-400e-b980-256e5b784be2"
 												}
