@@ -364,27 +364,6 @@
 					"item": [
 						{
 							"name": "/transactions",
-							"id": "20556562-e94312ad-a44e-4a5f-8952-13cdcc4c363f",
-							"protocolProfileBehavior": {
-								"disableBodyPruning": true
-							},
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{transactions-service}}/whoami",
-									"host": [
-										"{{transactions-service}}"
-									],
-									"path": [
-										"whoami"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "/transactions",
 							"id": "20556562-5b9cf009-70b5-40fe-beed-e1b2a1fff93b",
 							"protocolProfileBehavior": {
 								"disableBodyPruning": true
@@ -506,6 +485,30 @@
 										}
 									]
 								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"id": "20556562-bf6f238b-c080-4838-bde8-4d3089b457d4",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"id": "20556562-56b06b68-5c2b-4af2-8281-087d4f9ffd88",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": []
 							},
 							"response": []
 						}
