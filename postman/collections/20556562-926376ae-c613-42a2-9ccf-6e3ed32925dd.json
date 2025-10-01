@@ -544,7 +544,550 @@
 				},
 				{
 					"name": "workspaces",
-					"item": [],
+					"item": [
+						{
+							"name": "tags Copy",
+							"item": [
+								{
+									"name": "/tags",
+									"id": "20556562-258dba90-8719-4bb4-9365-504d84cecaf3",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/tags",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/tags",
+									"id": "20556562-509f7862-3bf7-4a0f-9073-1261859f419e",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"mary-tag-1\",\n    \"description\": \"test-description\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/tags",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/tags/:id",
+									"id": "20556562-44964a13-e5c5-4db4-9424-c165084404d4",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/tags/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "906f8835-98f6-412d-8de5-ba010ba0dd6c",
+													"key": "id",
+													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/tags/:id",
+									"id": "20556562-698a1f6d-0b83-4ae2-bd93-9563df5b2f17",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/tags/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "5273b89d-1cb5-40ec-9ff7-867c34c102d5",
+													"key": "id",
+													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/tags/:id",
+									"id": "20556562-3f67dbeb-86a6-41b7-a82f-f4517ff34787",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"poop-deez-nuts\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/tags/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "3d3f7c1b-a224-4240-867d-ebd0e114c071",
+													"key": "id",
+													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "20556562-29defcb2-501e-4d98-b938-e64bfe5a9a81"
+						},
+						{
+							"name": "accounts Copy",
+							"item": [
+								{
+									"name": "/accounts",
+									"id": "20556562-cf5104ad-814d-4453-a9fe-e2440e9eb5ff",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/accounts",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"accounts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/accounts",
+									"id": "20556562-8e40872a-dc6a-4715-8120-fe4b9d827d03",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"NFCU Checking 7812\",\n    \"institutionName\": \"Navy Federal Credit Union\",\n    \"type\": \"CASH\",\n    \"subType\": \"CHECKING\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/accounts",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"accounts"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/accounts/:id",
+									"id": "20556562-ec1dac44-9331-45eb-bcb1-5988a9288ece",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"poop\"\n}"
+										},
+										"url": {
+											"raw": "{{workspace-service}}/accounts/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"accounts",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "7ffd9fab-33c1-4d6e-a2f1-ed27fe79aded",
+													"key": "id",
+													"value": "95c2b75f-4620-4503-a7ab-364c73b250f8"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/accounts/:id",
+									"id": "20556562-d9603189-2146-4640-82a2-5edb805e12f6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/accounts/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"accounts",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "64216b47-e9dc-4ec8-9e3d-9a55d067fb45",
+													"key": "id",
+													"value": "0b7cc416-de48-4ca3-9a4e-4276122b2962"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/accounts/:id",
+									"id": "20556562-9c712c29-b623-42e0-a855-5f39ee4ed003",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"NFCU Checking\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/accounts/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"accounts",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "54311e32-aedd-442f-a5db-be7d0cdfd7d1",
+													"key": "id",
+													"value": "95c2b75f-4620-4503-a7ab-364c73b250f8"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "20556562-f2b278cd-a0c7-4fb0-88c4-158093273277"
+						},
+						{
+							"name": "categories Copy",
+							"item": [
+								{
+									"name": "/categories",
+									"id": "20556562-4091a95f-3885-4c50-b02f-00bf4d4f2bcd",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/categories",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/categories",
+									"id": "20556562-6d4f7952-6218-4d0a-b01e-198015b5ced4",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"new-category-test-0\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/categories",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"categories"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/categories/tree",
+									"id": "20556562-82abd63b-d4ce-4d70-aa45-2c3d53c4a1d7",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/categories/tree",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"categories",
+												"tree"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/categories/:id",
+									"id": "20556562-3d135c71-1e81-4633-8c24-9d8a4432359b",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/categories/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"categories",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "732396fa-d31f-46ae-8ff0-cd1e2d9d0721",
+													"key": "id",
+													"value": "f771e616-04f6-4193-84b4-18c29cbfde46"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/categories/:id",
+									"id": "20556562-d8abf00a-4287-4d6d-8d1f-78366662601a",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/categories/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"categories",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "f48af67a-63be-46e6-be59-203198aac5fa",
+													"key": "id",
+													"value": "964c7074-fc0b-400e-b980-256e5b784be2"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/categories/:id",
+									"id": "20556562-f5e99883-d255-405f-8621-f47cfc1abc19",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"parentId\": \"ab0f3499-9c03-4c2b-b868-1076dc09d952\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/categories/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"categories",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "9144b208-553b-4571-b5f7-c2e9a078763d",
+													"key": "id",
+													"value": "cedf79db-3377-4907-9dfe-2607c62dcd26"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "20556562-dc5f4157-4c68-4199-82a4-7f83b2dee017"
+						},
+						{
+							"name": "current Copy",
+							"item": [
+								{
+									"name": "/current",
+									"id": "20556562-2e69c485-c889-4868-8b1d-63e76ca423bc",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/current",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"current"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/current",
+									"id": "20556562-98f363ca-b440-4029-8f9e-ff43c2303223",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Connor & Kyndall's Workspace\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/current",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"current"
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "20556562-b0e40d3a-eb7a-40ec-adcc-10e7bb974094"
+						}
+					],
 					"id": "20556562-43891c5c-33fe-4028-aac5-866349bff196"
 				}
 			],
