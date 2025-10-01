@@ -802,17 +802,18 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/accounts/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/accounts/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"accounts",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "64216b47-e9dc-4ec8-9e3d-9a55d067fb45",
 													"key": "id",
 													"value": "0b7cc416-de48-4ca3-9a4e-4276122b2962"
 												}
