@@ -558,11 +558,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/tags",
+											"raw": "{{auth-gateway}}/api/workspaces/tags",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"tags"
 											]
 										}
