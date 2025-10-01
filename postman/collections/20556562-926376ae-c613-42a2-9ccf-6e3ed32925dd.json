@@ -1109,6 +1109,159 @@
 								}
 							],
 							"id": "20556562-b0e40d3a-eb7a-40ec-adcc-10e7bb974094"
+						},
+						{
+							"name": "merchants Copy",
+							"item": [
+								{
+									"name": "/merchants",
+									"id": "20556562-5a2c04cc-4298-4c70-8e2b-1e5ab709ee34",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/tags",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/merchants",
+									"id": "20556562-38771ca9-a3dd-4b02-b75f-2afec143307c",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"mary-tag-1\",\n    \"description\": \"test-description\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/tags",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags"
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/merchants/:id",
+									"id": "20556562-f636c1a4-2012-4952-a1f5-b0c7d4fb8427",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/tags/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "8ae791f9-cf9b-4b15-98d4-fa0e9ad7fdb7",
+													"key": "id",
+													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/merchants/:id",
+									"id": "20556562-32b43446-6123-4a56-8b62-3834eb7ac1e6",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": {
+											"raw": "{{workspace-service}}/tags/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "3cbf044d-6925-43aa-abea-ff0d2287bbc7",
+													"key": "id",
+													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
+												}
+											]
+										}
+									},
+									"response": []
+								},
+								{
+									"name": "/merchants/:id",
+									"id": "20556562-a59e11ec-dc5d-43b2-8558-32644a153a17",
+									"protocolProfileBehavior": {
+										"disableBodyPruning": true
+									},
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"poop-deez-nuts\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{workspace-service}}/tags/:id",
+											"host": [
+												"{{workspace-service}}"
+											],
+											"path": [
+												"tags",
+												":id"
+											],
+											"variable": [
+												{
+													"id": "739f8f19-5b77-4d64-ad16-71f9e4a353fc",
+													"key": "id",
+													"value": "486d4b20-e107-4b3d-852b-ba524fdea788"
+												}
+											]
+										}
+									},
+									"response": []
+								}
+							],
+							"id": "20556562-d0a50577-c132-497c-b82b-349b7a879e31"
 						}
 					],
 					"id": "20556562-43891c5c-33fe-4028-aac5-866349bff196"
