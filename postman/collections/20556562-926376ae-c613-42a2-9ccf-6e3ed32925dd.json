@@ -1062,11 +1062,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/current",
+											"raw": "{{auth-gateway}}/api/workspaces/current",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"current"
 											]
 										}
@@ -1092,11 +1094,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{workspace-service}}/current",
+											"raw": "{{auth-gateway}}/api/workspaces/current",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"current"
 											]
 										}
