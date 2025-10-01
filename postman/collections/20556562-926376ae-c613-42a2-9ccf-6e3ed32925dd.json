@@ -773,17 +773,18 @@
 											"raw": "{\n    \"name\": \"poop\"\n}"
 										},
 										"url": {
-											"raw": "{{workspace-service}}/accounts/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/accounts/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"accounts",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "7ffd9fab-33c1-4d6e-a2f1-ed27fe79aded",
 													"key": "id",
 													"value": "95c2b75f-4620-4503-a7ab-364c73b250f8"
 												}
@@ -841,17 +842,18 @@
 											}
 										},
 										"url": {
-											"raw": "{{workspace-service}}/accounts/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/accounts/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"accounts",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "54311e32-aedd-442f-a5db-be7d0cdfd7d1",
 													"key": "id",
 													"value": "95c2b75f-4620-4503-a7ab-364c73b250f8"
 												}
@@ -864,7 +866,7 @@
 							"id": "20556562-f2b278cd-a0c7-4fb0-88c4-158093273277"
 						},
 						{
-							"name": "categories Copy",
+							"name": "categories",
 							"item": [
 								{
 									"name": "/categories",
