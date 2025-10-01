@@ -145,11 +145,13 @@
 															}
 														},
 														"url": {
-															"raw": "{{identity-service}}/workspaces/current/members",
+															"raw": "{{auth-gateway}}/api/identity/workspaces/current/members",
 															"host": [
-																"{{identity-service}}"
+																"{{auth-gateway}}"
 															],
 															"path": [
+																"api",
+																"identity",
 																"workspaces",
 																"current",
 																"members"
