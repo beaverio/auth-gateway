@@ -339,11 +339,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{identity-service}}/workspaces/switch",
+											"raw": "{{auth-gateway}}/api/identity/workspaces/switch",
 											"host": [
-												"{{identity-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"identity",
 												"workspaces",
 												"switch"
 											]
