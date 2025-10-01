@@ -1123,12 +1123,14 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/tags",
+											"raw": "{{auth-gateway}}/api/workspaces/merchants",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
-												"tags"
+												"api",
+												"workspaces",
+												"merchants"
 											]
 										}
 									},
