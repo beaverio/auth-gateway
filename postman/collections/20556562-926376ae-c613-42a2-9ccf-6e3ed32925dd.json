@@ -878,11 +878,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{workspace-service}}/categories",
+											"raw": "{{auth-gateway}}/api/workspaces/categories",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"categories"
 											]
 										}
@@ -908,11 +910,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{workspace-service}}/categories",
+											"raw": "{{auth-gateway}}/api/workspaces/categories",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"categories"
 											]
 										}
