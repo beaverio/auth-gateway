@@ -358,6 +358,159 @@
 						}
 					],
 					"id": "20556562-c5839b18-52c5-4d06-9fd7-8435c79434d7"
+				},
+				{
+					"name": "transactions Copy",
+					"item": [
+						{
+							"name": "/transactions",
+							"id": "20556562-e94312ad-a44e-4a5f-8952-13cdcc4c363f",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{transactions-service}}/whoami",
+									"host": [
+										"{{transactions-service}}"
+									],
+									"path": [
+										"whoami"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/transactions",
+							"id": "20556562-5b9cf009-70b5-40fe-beed-e1b2a1fff93b",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{transactions-service}}/transactions",
+									"host": [
+										"{{transactions-service}}"
+									],
+									"path": [
+										"transactions"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/transactions/:id",
+							"id": "20556562-b48d1445-ab58-4adc-a678-8635b67d2394",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{transactions-service}}/transactions/:id",
+									"host": [
+										"{{transactions-service}}"
+									],
+									"path": [
+										"transactions",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "925dc608-c7c3-41e1-9536-25277b8ed8b7",
+											"key": "id",
+											"value": "5d1a4931-7279-4f6c-9ac7-8a24cbf3a890"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/transactions/:id",
+							"id": "20556562-7a767648-cb33-4031-8d3c-ce442543dad3",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{transactions-service}}/transactions/:id",
+									"host": [
+										"{{transactions-service}}"
+									],
+									"path": [
+										"transactions",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "1bc04451-45e0-4ce6-817a-7261e60785c2",
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/transactions/:id",
+							"id": "20556562-7de7f36c-90f4-45be-ad18-d6a34b1743aa",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{transactions-service}}/transactions/:id",
+									"host": [
+										"{{transactions-service}}"
+									],
+									"path": [
+										"transactions",
+										":id"
+									],
+									"variable": [
+										{
+											"id": "aee3bb3e-18ed-4315-964a-964e6e98e1c6",
+											"key": "id",
+											"value": ""
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"id": "20556562-a30d4f89-658e-4fca-9597-424e85382a1e"
 				}
 			],
 			"id": "20556562-a01b6824-edcd-4afb-b58d-e3add2fbdf74"
