@@ -24,11 +24,13 @@
 										"method": "POST",
 										"header": [],
 										"url": {
-											"raw": "{{identity-service}}/users/bootstrap",
+											"raw": "{{auth-gateway}}/api/identity/users/bootstrap",
 											"host": [
-												"{{identity-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"identity",
 												"users",
 												"bootstrap"
 											]
@@ -46,11 +48,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{identity-service}}/users/self",
+											"raw": "{{auth-gateway}}/api/identity/users/self",
 											"host": [
-												"{{identity-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"identity",
 												"users",
 												"self"
 											]
@@ -68,11 +72,13 @@
 										"method": "PATCH",
 										"header": [],
 										"url": {
-											"raw": "{{identity-service}}/users/self",
+											"raw": "{{auth-gateway}}/api/identity/users/self",
 											"host": [
-												"{{identity-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"identity",
 												"users",
 												"self"
 											]
@@ -90,11 +96,13 @@
 										"method": "DELETE",
 										"header": [],
 										"url": {
-											"raw": "{{identity-service}}/users/self",
+											"raw": "{{auth-gateway}}/api/identity/users/self",
 											"host": [
-												"{{identity-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"identity",
 												"users",
 												"self"
 											]
@@ -122,7 +130,20 @@
 													},
 													"request": {
 														"method": "GET",
-														"header": []
+														"header": [],
+														"url": {
+															"raw": "{{auth-gateway}}/api/identity/workspaces/current/members",
+															"host": [
+																"{{auth-gateway}}"
+															],
+															"path": [
+																"api",
+																"identity",
+																"workspaces",
+																"current",
+																"members"
+															]
+														}
 													},
 													"response": []
 												},
@@ -220,11 +241,13 @@
 															}
 														},
 														"url": {
-															"raw": "{{identity-service}}/workspaces/current/members/:userId",
+															"raw": "{{auth-gateway}}/api/identity/workspaces/current/members/:userId",
 															"host": [
-																"{{identity-service}}"
+																"{{auth-gateway}}"
 															],
 															"path": [
+																"api",
+																"identity",
 																"workspaces",
 																"current",
 																"members",
@@ -232,7 +255,6 @@
 															],
 															"variable": [
 																{
-																	"id": "c4f7a619-c295-436a-b811-b4f6cfdf6c26",
 																	"key": "userId",
 																	"value": ""
 																}
@@ -254,11 +276,13 @@
 												"method": "GET",
 												"header": [],
 												"url": {
-													"raw": "{{identity-service}}/workspaces/current",
+													"raw": "{{auth-gateway}}/api/identity/workspaces/current",
 													"host": [
-														"{{identity-service}}"
+														"{{auth-gateway}}"
 													],
 													"path": [
+														"api",
+														"identity",
 														"workspaces",
 														"current"
 													]
@@ -279,11 +303,13 @@
 										"method": "GET",
 										"header": [],
 										"url": {
-											"raw": "{{identity-service}}/workspaces",
+											"raw": "{{auth-gateway}}/api/identity/workspaces",
 											"host": [
-												"{{identity-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"identity",
 												"workspaces"
 											]
 										}
@@ -309,11 +335,13 @@
 											}
 										},
 										"url": {
-											"raw": "{{identity-service}}/workspaces",
+											"raw": "{{auth-gateway}}/api/identity/workspaces",
 											"host": [
-												"{{identity-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"identity",
 												"workspaces"
 											]
 										}
@@ -370,7 +398,17 @@
 							},
 							"request": {
 								"method": "GET",
-								"header": []
+								"header": [],
+								"url": {
+									"raw": "{{auth-gateway}}/api/transactions",
+									"host": [
+										"{{auth-gateway}}"
+									],
+									"path": [
+										"api",
+										"transactions"
+									]
+								}
 							},
 							"response": []
 						},
@@ -384,11 +422,12 @@
 								"method": "POST",
 								"header": [],
 								"url": {
-									"raw": "{{transactions-service}}/transactions",
+									"raw": "{{auth-gateway}}/api/transactions",
 									"host": [
-										"{{transactions-service}}"
+										"{{auth-gateway}}"
 									],
 									"path": [
+										"api",
 										"transactions"
 									]
 								}
@@ -405,17 +444,17 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{transactions-service}}/transactions/:id",
+									"raw": "{{auth-gateway}}/api/transactions/:id",
 									"host": [
-										"{{transactions-service}}"
+										"{{auth-gateway}}"
 									],
 									"path": [
+										"api",
 										"transactions",
 										":id"
 									],
 									"variable": [
 										{
-											"id": "925dc608-c7c3-41e1-9536-25277b8ed8b7",
 											"key": "id",
 											"value": "5d1a4931-7279-4f6c-9ac7-8a24cbf3a890"
 										}
@@ -443,17 +482,17 @@
 									}
 								},
 								"url": {
-									"raw": "{{transactions-service}}/transactions/:id",
+									"raw": "{{auth-gateway}}/api/transactions/:id",
 									"host": [
-										"{{transactions-service}}"
+										"{{auth-gateway}}"
 									],
 									"path": [
+										"api",
 										"transactions",
 										":id"
 									],
 									"variable": [
 										{
-											"id": "1bc04451-45e0-4ce6-817a-7261e60785c2",
 											"key": "id",
 											"value": ""
 										}
