@@ -179,11 +179,13 @@
 															}
 														},
 														"url": {
-															"raw": "{{identity-service}}/workspaces/current/members/:userId",
+															"raw": "{{auth-gateway}}/api/identity/workspaces/current/members/:userId",
 															"host": [
-																"{{identity-service}}"
+																"{{auth-gateway}}"
 															],
 															"path": [
+																"api",
+																"identity",
 																"workspaces",
 																"current",
 																"members",
@@ -191,7 +193,6 @@
 															],
 															"variable": [
 																{
-																	"id": "5608c269-78d6-41b8-a009-2b96fbcd88a0",
 																	"key": "userId",
 																	"value": ""
 																}
