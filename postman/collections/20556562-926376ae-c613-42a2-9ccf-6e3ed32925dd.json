@@ -1026,17 +1026,18 @@
 											}
 										},
 										"url": {
-											"raw": "{{workspace-service}}/categories/:id",
+											"raw": "{{auth-gateway}}/api/workspaces/categories/:id",
 											"host": [
-												"{{workspace-service}}"
+												"{{auth-gateway}}"
 											],
 											"path": [
+												"api",
+												"workspaces",
 												"categories",
 												":id"
 											],
 											"variable": [
 												{
-													"id": "9144b208-553b-4571-b5f7-c2e9a078763d",
 													"key": "id",
 													"value": "cedf79db-3377-4907-9dfe-2607c62dcd26"
 												}
@@ -1049,7 +1050,7 @@
 							"id": "20556562-dc5f4157-4c68-4199-82a4-7f83b2dee017"
 						},
 						{
-							"name": "current Copy",
+							"name": "current",
 							"item": [
 								{
 									"name": "/current",
